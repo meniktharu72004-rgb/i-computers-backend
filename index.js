@@ -1,0 +1,45 @@
+import express from 'express'
+import mongoose from 'mongoose'
+import studentRouter from './routes/studentRouter.js';
+import userRouter from './routes/userRouter.js';
+
+import authenticateUser from './middlewares/authenticate.js';
+import productRouter from './routes/productRouter.js';
+
+
+
+const mongoUri = "mongodb://admin:1234@ac-3gdzttp-shard-00-00.oy3tlzf.mongodb.net:27017,ac-3gdzttp-shard-00-01.oy3tlzf.mongodb.net:27017,ac-3gdzttp-shard-00-02.oy3tlzf.mongodb.net:27017/?ssl=true&replicaSet=atlas-sqy0zp-shard-0&authSource=admin&appName=Cluster0";
+
+mongoose.connect(mongoUri).then(
+    
+   ()=>{
+
+      console.log("Conncted to MongoDB");
+   }
+);
+
+const app = express();
+
+
+
+app.use(express.json());
+
+app.use(authenticateUser);
+
+
+app.use("/students", studentRouter);
+
+app.use("/users",userRouter);
+
+app.use("/products",productRouter);
+
+
+app.listen(3000,
+    
+   ()=>{
+     console.log("Server is running");
+     
+   }
+
+);
+
