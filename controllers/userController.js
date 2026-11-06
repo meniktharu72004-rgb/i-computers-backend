@@ -2,7 +2,8 @@ import User from "../models/user.js";
 import bcrypt from 'bcrypt'
 import jwt from "jsonwebtoken"
 
-
+import dotenv from 'dotenv'
+dotenv.config()
 
 
 // async await method...
@@ -69,7 +70,7 @@ export async function loginUser(req,res){
                  
             }
 
-            const token = jwt.sign(userInfo,"#ytr5674");
+            const token = jwt.sign(userInfo,process.env.JWT_SECRET);
             res.json({token:token});
 
         }else{
