@@ -16,7 +16,9 @@ mongoose.connect(mongoUri).then(
 
       console.log("Conncted to MongoDB");
    }
-);
+).catch(
+   console.log("Error connecting to mongoDB!")
+)
 
 const app = express();
 
